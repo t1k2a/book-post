@@ -7,6 +7,11 @@ pre {
   font-weight: bold;
 }
 
+.items {
+    background: #2c3e50;
+  color: white;
+}
+
 .item {
   padding: 5px;
 }
@@ -22,13 +27,14 @@ pre {
 <template>
     <!-- draggable属性(draggable=".item")を付与 -->
     <div class="container">
-        <draggable v-model="database[0]" draggable=".item" group="books" handle=".handle" :animation="300">
+            <div id="mykanban"></div>
+        <draggable v-model="database[0]" draggable=".item" group="books" handle=".handle" :animation="300" class="items">
             <!-- ドラッグ可能にするためにclass属性(class="item")を付与 -->
             <v-col v-for="{ id, name } in database[0]" :key="id" cols="auto" class="item">
                 <router-link :to="`/book/${ id }`" class="handle">{{ name }}</router-link>
             </v-col>
         </draggable>
-        <draggable v-model="database[1]" draggable=".item" group="books" handle=".handle" :animation="300">
+        <draggable v-model="database[1]" draggable=".item" group="books" handle=".handle" :animation="300" class="items">
             <v-col v-for="{ id, name } in database[1]" :key="id" cols="auto" class="item">
                 <router-link :to="`/book/${ id }`" class="handle">{{ name }}</router-link>
             </v-col>
@@ -49,6 +55,7 @@ pre {
 import  vue from 'vue'
 import  books  from '@/api/books'
 import  draggable from 'vuedraggable'
+import "@/css/jkanban.min.css"
 
 function dumpObj(obj){
     return JSON.stringify(obj, null, 2)
